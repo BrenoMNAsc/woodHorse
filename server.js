@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const cookieSession = require("cookie-session");
 require("dotenv/config");
+
 const app = express();
 
 const cookieParser = require('cookie-parser');
@@ -23,6 +24,7 @@ app.use(
 );
 app.use(express.static("public"));
 
+// Database e sincronização
 const db = require("./app/models");
 const { initializeDatabase } = require("./app/models/initialDatabase");
 
@@ -32,7 +34,16 @@ const PORT = process.env.PORT || 3000;
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to cariri application." });
 });
+
+// Registre suas rotas antes de sincronizar o banco de dados para evitar erros de rota
 require("./app/routes/auth.routes")(app);
+require("./app/routes/post.routes")(app);
+require("./app/routes/professional.routes")(app);
+require("./app/routes/tag.routes")(app);
+require("./app/routes/localization.routes")(app);
+require("./app/routes/exp.routes")(app);
+require("./app/routes/course.routes")(app);
+require("./app/routes/image.routes")(app);
 
 // Sincronize o banco de dados após registrar as rotas
 db.sequelize.sync({ force: true }).then(() => {
