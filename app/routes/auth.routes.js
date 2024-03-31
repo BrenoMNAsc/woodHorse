@@ -11,7 +11,7 @@ module.exports = function (app) {
   });
 
   app.post(
-    "/api/auth/signup/professional",
+    "/api/auth/signup/",
     [
       upload,
       verifySignUp.checkDuplicateUsernameOrEmail,
