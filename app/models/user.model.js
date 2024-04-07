@@ -15,16 +15,25 @@ module.exports = (sequelize, Sequelize) => {
         nacio: {
             type: Sequelize.STRING
         },
-        birth:{
+        birth: {
             type: Sequelize.STRING
         },
-        name:{
+        name: {
             type: Sequelize.STRING
         },
-        password:{
+        password: {
             type: Sequelize.STRING
         },
-        phone:{
+        phone: {
+            type: Sequelize.STRING
+        },
+        plano: {
+            type: Sequelize.STRING
+        },
+        parcelas: {
+            type: Sequelize.STRING
+        },
+        planoTotal: {
             type: Sequelize.STRING
         }
     });

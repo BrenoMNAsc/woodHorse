@@ -1,23 +1,12 @@
-const db = require("../models");
 const config = require("../config/auth.config");
-const User = db.user:
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const { InsertUser, FindUserByEmailOrUsername } = require('../service/auth.service')
 
 exports.signup = async (req, res) => {
     try {
         const body = req.body
-        const user = await User.create({
-            cpf: body.cadCpf,
-            digit: body.cadDigito,
-            email: body.cadEmail,
-            username: body.cadLogin,
-            nacio: body.cadNacionalidade,
-            birth: body.cadNascimento,
-            name: body.cadNome,
-            password: bcrypt.hashSync(body.cadSenha, 8),
-            phone: body.cadTelefone
-        })
+        const user = await InsertUser(body)
         return res.send({ message: 'Usuário cadastrado com sucesso!' })
     } catch (error) {
         console.log(error);
@@ -28,11 +17,7 @@ exports.signup = async (req, res) => {
 
 exports.signin = async (req, res) => {
     try {
-        let user = await User.findOne({
-            where: {
-                username: req.body.meuLogin
-            }
-        })
+        let user = await FindUserByEmailOrUsername('', req.body.meuLogin)
         if (!user) return res.status(404).send({ message: 'Usuário não encontrado' })
         const passwordIsValid = bcrypt.compareSync(
             req.body.minhaSenha,
@@ -63,10 +48,14 @@ exports.signin = async (req, res) => {
             .send({
                 id: user.id,
                 username: user.username,
-                bio: user.bio,
                 phone: user.phone,
-                cellPhone: user.cellPhone,
                 email: user.email,
+                nacio: user.nacio,
+                cpf: user.cpf,
+                name: user.name,
+                plano: user.plano,
+                parcelas: user.parcelas,
+                planoTotal: user.planoTotal,
                 message: "Usuário logado com sucesso.",
             });
     } catch (error) {

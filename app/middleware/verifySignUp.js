@@ -1,31 +1,16 @@
-const db = require('../models');
-const User = db.user;
-
+const { FindUserByEmailOrUsername, FindUserByCPF } = require('../service/auth.service')
 const checkDuplicateUsernameOrEmail = async (req, res, next) => {
     try {
         let user;
         console.log(JSON.stringify(req.body))
-        user = await User.findOne({
-            where: {
-                [Op.or]: [
-                    { username: req.body.cadLogin },
-                    { email: req.body.cadEmail },
-                ],
-            },
-        });
+        user = await FindUserByEmailOrUsername(req.body.cadEmail, req.body.cadLogin);
         if (user) {
             return res.send({
                 message: "Falha!, usuário já cadastrado"
             }).status(400);
         }
         else if (req.body.cpf) {
-            user = await User.findOne({
-                where: {
-                    [Op.or]: [
-                        { cpf: req.body.cadCpf },
-                    ],
-                },
-            });
+            user = await FindUserByCPF(req.body.cadCpf);
             if (user) {
                 return res.send({
                     message: "Falha!, usuário já cadastrado"

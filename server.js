@@ -26,7 +26,6 @@ app.use(express.static("public"));
 
 // Database e sincronização
 const db = require("./app/models");
-const { initializeDatabase } = require("./app/models/initialDatabase");
 
 const PORT = process.env.PORT || 3000;
 
@@ -41,7 +40,6 @@ require("./app/routes/auth.routes")(app);
 // Sincronize o banco de dados após registrar as rotas
 db.sequelize.sync({ force: true }).then(() => {
   console.log("Drop and Resync Db");
-  initializeDatabase();
 
   // Inicie o servidor após sincronizar o banco de dados
   app.listen(PORT, () => {
