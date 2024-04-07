@@ -2,14 +2,22 @@
   "name": "woodhorse",
   "version": "1.0.0",
   "description": "Aplicação de serviço da academia Cavalo de Pau",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "test"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.19.1"
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "cookie-session": "^2.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.1",
+    "jsonwebtoken": "^9.0.2",
+    "mariadb": "^3.3.0",
+    "sequelize": "^6.37.2"
   },
   "type": "commonjs"
 }
