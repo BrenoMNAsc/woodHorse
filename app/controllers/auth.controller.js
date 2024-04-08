@@ -1,7 +1,8 @@
 const config = require("../config/auth.config");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const { InsertUser, FindUserByEmailOrUsername } = require('../service/auth.service')
+const { InsertUser, FindUserByEmailOrUsername, UpdateUserById } = require('../service/user.service');
+
 
 exports.signup = async (req, res) => {
     try {
@@ -61,5 +62,22 @@ exports.signin = async (req, res) => {
     } catch (error) {
         console.log(error);
         return res.status(500).send({ message: error.message });
+    }
+}
+
+
+exports.update = async (req, res) => {
+    try {
+        const userId = req.body.id;
+        const newData = {
+            username: req.body.username,
+            email: req.body.email,
+            phone: req.body.phone
+        }
+        const user = await UpdateUserById(userId, newData)
+        return res.send({ message: 'Usuário atualizado!', ...user })
+    } catch (error) {
+        console.log(error)
+        return res.status(500).send({ message: error.message })
     }
 }

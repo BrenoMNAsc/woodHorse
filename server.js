@@ -17,7 +17,7 @@ app.use(cors(
 app.use(express.json());
 app.use(
   cookieSession({
-    name: "conetese-session",
+    name: "cavalo-session",
     keys: [process.env.COOKIE_SECRET],
     httpOnly: true,
   })
@@ -31,7 +31,7 @@ const PORT = process.env.PORT || 3000;
 
 // Rotas
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to cariri application." });
+  res.json({ message: "Welcome to cavalo application." });
 });
 
 // Registre suas rotas antes de sincronizar o banco de dados para evitar erros de rota

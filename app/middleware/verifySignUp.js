@@ -1,4 +1,4 @@
-const { FindUserByEmailOrUsername, FindUserByCPF } = require('../service/auth.service')
+const { FindUserByEmailOrUsername, FindUserByCPF } = require('../service/user.service')
 const checkDuplicateUsernameOrEmail = async (req, res, next) => {
     try {
         let user;

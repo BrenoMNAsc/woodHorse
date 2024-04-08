@@ -44,8 +44,19 @@ const FindUserByCPF = async (cpf) => {
     return user
 }
 
+const UpdateUserById = async (id, newData) => {
+    const user = await User.findByPk(id)
+    console.log(newData)
+    user.username = newData.username
+    user.email = newData.email
+    user.phone = newData.phone
+    user.save()
+    return user
+}
+
 module.exports = {
     FindUserByEmailOrUsername,
     FindUserByCPF,
-    InsertUser
+    InsertUser,
+    UpdateUserById
 }
